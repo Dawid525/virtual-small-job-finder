@@ -15,7 +15,7 @@
   <name>virtualSmallJobFinder</name>  
   <description>Simple project for students</description>  
   <properties> 
-    <java.version>11</java.version> 
+    <java.version>1.8</java.version>
   </properties>  
   <dependencies> 
     <dependency> 
@@ -80,34 +80,6 @@
             </exclude> 
           </excludes> 
         </configuration> 
-      </plugin>  
-      <plugin>
-        <groupId>com.microsoft.azure</groupId>
-        <artifactId>azure-webapp-maven-plugin</artifactId>
-        <version>1.12.0</version>
-        <configuration>
-          <schemaVersion>v2</schemaVersion>
-          <subscriptionId>88851e39-b7af-4ad4-9057-900a0d69677f</subscriptionId>
-          <resourceGroup>virtualSmallJobFinder-1644938059560-rg</resourceGroup>
-          <appName>virtualSmallJobFinder-1644938059560</appName>
-          <pricingTier>F1</pricingTier>
-          <region>westeurope</region>
-          <runtime>
-            <os>Windows</os>
-            <javaVersion>Java 11</javaVersion>
-            <webContainer>Java SE</webContainer>
-          </runtime>
-          <deployment>
-            <resources>
-              <resource>
-                <directory>${project.basedir}/target</directory>
-                <includes>
-                  <include>*.jar</include>
-                </includes>
-              </resource>
-            </resources>
-          </deployment>
-        </configuration>
       </plugin>
     </plugins> 
   </build> 
