@@ -3,6 +3,7 @@ package com.pentagon.cafe.virtualSmallJobFinder.repositories.entities;
 import com.pentagon.cafe.virtualSmallJobFinder.enums.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Table(name = "roles")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Role {
 
     @Id

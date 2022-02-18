@@ -16,7 +16,7 @@ public class UserLoggedInfoService {
     private final UserRepository userRepository;
     public UserEntity getLoggedUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
         return userRepository.getByUsername(username);
     }

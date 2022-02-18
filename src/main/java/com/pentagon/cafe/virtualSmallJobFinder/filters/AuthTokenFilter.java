@@ -30,12 +30,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         String prefixBearer = "Bearer ";
         String headerAuth = request.getHeader("Authorization");
         if( headerAuth != null && headerAuth.startsWith(prefixBearer)){
-           String token = headerAuth.substring(prefixBearer.length());
-           String username = jwtUtils.getUsernameFromJwt(token);
-           UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-           var authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-           authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-           SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = headerAuth.substring(prefixBearer.length());
+            jwtUtils.validateJwtToken(token);
+            String username = jwtUtils.getUsernameFromJwt(token);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            var authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         
         filterChain.doFilter(request, response);

@@ -10,6 +10,7 @@ import com.pentagon.cafe.virtualSmallJobFinder.repositories.RoleRepository;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.UserRepository;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.Role;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.UserEntity;
+import com.pentagon.cafe.virtualSmallJobFinder.services.dtos.UserDto;
 import com.pentagon.cafe.virtualSmallJobFinder.utils.RegisterRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,15 +18,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 @AllArgsConstructor
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserLoggedInfoService userLoggedInfoService;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -67,4 +67,21 @@ public class UserService {
         }
     }
 
+    public List<UserEntity> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Transactional
+    public void updateUser(UserDto userDto){
+        UserEntity userEntity = userLoggedInfoService.getLoggedUser();
+        if(Objects.nonNull(userDto.getEmail())){
+            userEntity.setEmail(userDto.getEmail());
+        }
+    }
+
+    @Transactional
+    public void changePassword(UserDto userDto) {
+        UserEntity userEntity = userLoggedInfoService.getLoggedUser();
+        userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
+    }
 }
