@@ -3,7 +3,6 @@ package com.pentagon.cafe.virtualSmallJobFinder.services;
 
 
 import com.pentagon.cafe.virtualSmallJobFinder.enums.RoleEnum;
-import com.pentagon.cafe.virtualSmallJobFinder.exceptions.RoleNotFoundException;
 import com.pentagon.cafe.virtualSmallJobFinder.exceptions.UserWithThisEmailExistsException;
 import com.pentagon.cafe.virtualSmallJobFinder.exceptions.UserWithThisUsernameExistsException;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.RoleRepository;
@@ -11,7 +10,7 @@ import com.pentagon.cafe.virtualSmallJobFinder.repositories.UserRepository;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.Role;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.UserEntity;
 import com.pentagon.cafe.virtualSmallJobFinder.services.dtos.UserDto;
-import com.pentagon.cafe.virtualSmallJobFinder.utils.RegisterRequest;
+import com.pentagon.cafe.virtualSmallJobFinder.payload.RegisterRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;

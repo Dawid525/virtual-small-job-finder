@@ -2,9 +2,8 @@ package com.pentagon.cafe.virtualSmallJobFinder.controllers;
 
 import com.pentagon.cafe.virtualSmallJobFinder.services.AuthenticationService;
 import com.pentagon.cafe.virtualSmallJobFinder.services.UserService;
-import com.pentagon.cafe.virtualSmallJobFinder.utils.JwtResponse;
-import com.pentagon.cafe.virtualSmallJobFinder.utils.LoginRequest;
-import com.pentagon.cafe.virtualSmallJobFinder.utils.RegisterRequest;
+import com.pentagon.cafe.virtualSmallJobFinder.payload.LoginRequest;
+import com.pentagon.cafe.virtualSmallJobFinder.payload.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +28,11 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest){
+        return ResponseEntity.status(201).body("User registered successfully with id:" + userService.addUser(registerRequest));
+    }
+
+    @PostMapping("/refreshtoken")
+    public ResponseEntity<?> refreshToken(@RequestBody RegisterRequest registerRequest){
         return ResponseEntity.status(201).body("User registered successfully with id:" + userService.addUser(registerRequest));
     }
 

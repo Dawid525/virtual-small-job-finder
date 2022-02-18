@@ -1,9 +1,9 @@
 package com.pentagon.cafe.virtualSmallJobFinder.services;
 
 
-import com.pentagon.cafe.virtualSmallJobFinder.utils.JwtResponse;
+import com.pentagon.cafe.virtualSmallJobFinder.payload.JwtResponse;
 import com.pentagon.cafe.virtualSmallJobFinder.utils.JwtUtils;
-import com.pentagon.cafe.virtualSmallJobFinder.utils.LoginRequest;
+import com.pentagon.cafe.virtualSmallJobFinder.payload.LoginRequest;
 import com.pentagon.cafe.virtualSmallJobFinder.utils.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

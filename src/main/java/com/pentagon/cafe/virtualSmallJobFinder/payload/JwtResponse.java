@@ -1,4 +1,4 @@
-package com.pentagon.cafe.virtualSmallJobFinder.utils;
+package com.pentagon.cafe.virtualSmallJobFinder.payload;
 
 import lombok.Data;
 
