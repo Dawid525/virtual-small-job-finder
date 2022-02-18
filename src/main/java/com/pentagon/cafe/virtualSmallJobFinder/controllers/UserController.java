@@ -1,5 +1,6 @@
 package com.pentagon.cafe.virtualSmallJobFinder.controllers;
 
+import com.pentagon.cafe.virtualSmallJobFinder.payload.RegisterRequest;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.UserEntity;
 import com.pentagon.cafe.virtualSmallJobFinder.services.UserService;
 import com.pentagon.cafe.virtualSmallJobFinder.services.dtos.UserDto;
@@ -24,22 +25,22 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/{id}/give/admin")
-    public ResponseEntity<?> giveAdminRoleToUser(@PathVariable Long id){
-        userService.giveAdminRoleToUser(id);
+    @PostMapping("/{username}/give/admin")
+    public ResponseEntity<?> giveAdminRoleToUser(@PathVariable String username){
+        userService.giveAdminRoleToUser(username);
         return ResponseEntity.status(204).build();
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/{id}/take/admin")
-    public ResponseEntity<?> takeAdminRoleFromUser(@PathVariable Long id){
-        userService.takeAdminRoleFromUser(id);
+    @PostMapping("/{username}/take/admin")
+    public ResponseEntity<?> takeAdminRoleFromUser(@PathVariable String username){
+        userService.takeAdminRoleFromUser(username);
         return ResponseEntity.status(204).build();
     }
 
     @PutMapping()
     public ResponseEntity<?> changeEmailByLoggedUser(@RequestBody UserDto userDto){
-        userService.updateUser(userDto);
+        userService.changeEmail(userDto);
         return ResponseEntity.status(204).build();
     }
 
@@ -49,5 +50,20 @@ public class UserController {
         return ResponseEntity.status(204).build();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("/{username}")
+    public ResponseEntity<?> deleteUser(@PathVariable String username){
+        userService.deleteUserByUsername(username);
+        return ResponseEntity.status(200).build();
+    }
+    @GetMapping("/checkUsername")
+    public ResponseEntity<Boolean> isUsernameAvailable(@RequestBody RegisterRequest registerRequest){
+        return ResponseEntity.ok(userService.isUsernameAvailable(registerRequest.getUsername()));
+    }
+
+    @GetMapping("/checkEmail")
+    public ResponseEntity<Boolean> isEmailAvailable(@RequestBody RegisterRequest registerRequest){
+        return ResponseEntity.ok(userService.isEmailAvailable(registerRequest.getEmail()));
+    }
 
 }
