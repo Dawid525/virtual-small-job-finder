@@ -5,7 +5,9 @@ import com.pentagon.cafe.virtualSmallJobFinder.repositories.RefreshTokenReposito
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.UserRepository;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.RefreshToken;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +15,13 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
-@Service
-@AllArgsConstructor
+@Component
 public class RefreshTokenService {
-    private final RefreshTokenRepository refreshTokenRepository;
-    private final UserRepository userRepository;
+
+    @Autowired
+    private  RefreshTokenRepository refreshTokenRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Value("${app.jwtRefreshExpirationTimeMs}")
     private Long refreshTokenDurationMs;

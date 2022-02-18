@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class RefreshToken {
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        private long id;
+        private Long id;
         @OneToOne
         @JoinColumn(name = "user_id", referencedColumnName = "id")
         private UserEntity user;
