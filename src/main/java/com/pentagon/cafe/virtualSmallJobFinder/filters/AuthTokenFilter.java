@@ -1,9 +1,13 @@
 package com.pentagon.cafe.virtualSmallJobFinder.filters;
 
 
+import com.pentagon.cafe.virtualSmallJobFinder.exceptions.TokenRefreshException;
+import com.pentagon.cafe.virtualSmallJobFinder.payload.TokenRefreshResponse;
+import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.RefreshToken;
 import com.pentagon.cafe.virtualSmallJobFinder.services.UserDetailsServiceImpl;
 import com.pentagon.cafe.virtualSmallJobFinder.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,4 +45,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         
         filterChain.doFilter(request, response);
     }
+
+
 }

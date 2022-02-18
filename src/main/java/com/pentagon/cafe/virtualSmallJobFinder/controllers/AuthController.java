@@ -1,5 +1,7 @@
 package com.pentagon.cafe.virtualSmallJobFinder.controllers;
 
+import com.pentagon.cafe.virtualSmallJobFinder.payload.TokenRefreshRequest;
+import com.pentagon.cafe.virtualSmallJobFinder.payload.TokenRefreshResponse;
 import com.pentagon.cafe.virtualSmallJobFinder.services.AuthenticationService;
 import com.pentagon.cafe.virtualSmallJobFinder.services.UserService;
 import com.pentagon.cafe.virtualSmallJobFinder.payload.LoginRequest;
@@ -32,8 +34,8 @@ public class AuthController {
     }
 
     @PostMapping("/refreshtoken")
-    public ResponseEntity<?> refreshToken(@RequestBody RegisterRequest registerRequest){
-        return ResponseEntity.status(201).body("User registered successfully with id:" + userService.addUser(registerRequest));
+    public ResponseEntity<TokenRefreshResponse> refreshToken(@RequestBody TokenRefreshRequest tokenRefreshRequest){
+        return ResponseEntity.status(200).body(authenticationService.refreshToken(tokenRefreshRequest));
     }
 
 }

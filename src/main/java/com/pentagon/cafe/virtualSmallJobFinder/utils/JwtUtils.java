@@ -15,13 +15,13 @@ public class JwtUtils {
     @Value("${app.jwtExpirationTimeMs}")
     private int jwtExpirationTimeMs;
 
-
-
     public String generateJwtToken(Authentication authentication){
-
         UserDetailsImpl  userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        return generateJwtTokenByUsername(userDetails.getUsername());
+    }
+    public String generateJwtTokenByUsername(String username){
         return Jwts.builder()
-                .setSubject(userDetails.getUsername())
+                .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + jwtExpirationTimeMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
@@ -31,9 +31,9 @@ public class JwtUtils {
     public String getUsernameFromJwt(String jwt) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(jwt).getBody().getSubject();
     }
-    public boolean validateJwtToken(String authToken) {
+    public boolean validateJwtToken(String jwt) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(jwt);
             return true;
         }
         catch (SignatureException | ExpiredJwtException | UnsupportedJwtException |
@@ -41,5 +41,6 @@ public class JwtUtils {
             return false;
         }
     }
+
 
 }
