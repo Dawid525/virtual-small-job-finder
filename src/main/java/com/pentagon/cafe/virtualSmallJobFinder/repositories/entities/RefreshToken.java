@@ -2,8 +2,6 @@ package com.pentagon.cafe.virtualSmallJobFinder.repositories.entities;
 
 
 import lombok.Data;
-import org.apache.tomcat.jni.Local;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
