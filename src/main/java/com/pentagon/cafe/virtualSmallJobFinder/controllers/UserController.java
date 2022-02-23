@@ -38,12 +38,27 @@ public class UserController {
         return ResponseEntity.status(204).build();
     }
 
-    @PutMapping()
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping()
+    public ResponseEntity<?> addUser(@RequestBody RegisterRequest registerRequest){
+        userService.addUser(registerRequest);
+        return ResponseEntity.status(204).build();
+    }
+    @GetMapping("/checkUsername")
+    public ResponseEntity<Boolean> isUsernameAvailable(@RequestBody RegisterRequest registerRequest){
+        return ResponseEntity.ok(userService.isUsernameAvailable(registerRequest.getUsername()));
+    }
+
+    @GetMapping("/checkEmail")
+    public ResponseEntity<Boolean> isEmailAvailable(@RequestBody RegisterRequest registerRequest){
+        return ResponseEntity.ok(userService.isEmailAvailable(registerRequest.getEmail()));
+    }
+
+    @PutMapping("/change/email")
     public ResponseEntity<?> changeEmailByLoggedUser(@RequestBody UserDto userDto){
         userService.changeEmail(userDto);
         return ResponseEntity.status(204).build();
     }
-
     @PutMapping("/change/password")
     public ResponseEntity<?> changePasswordByLoggedUser(@RequestBody UserDto userDto){
         userService.changePassword(userDto);
@@ -55,15 +70,6 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable String username){
         userService.deleteUserByUsername(username);
         return ResponseEntity.status(200).build();
-    }
-    @GetMapping("/checkUsername")
-    public ResponseEntity<Boolean> isUsernameAvailable(@RequestBody RegisterRequest registerRequest){
-        return ResponseEntity.ok(userService.isUsernameAvailable(registerRequest.getUsername()));
-    }
-
-    @GetMapping("/checkEmail")
-    public ResponseEntity<Boolean> isEmailAvailable(@RequestBody RegisterRequest registerRequest){
-        return ResponseEntity.ok(userService.isEmailAvailable(registerRequest.getEmail()));
     }
 
 }
