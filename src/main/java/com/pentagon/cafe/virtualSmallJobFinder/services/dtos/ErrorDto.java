@@ -10,7 +10,7 @@ import java.util.Map;
 @AllArgsConstructor
 @Data
 @ToString
-public class ErrorMessageDto {
-    private Map<String, String> errorMessage;
+public class ErrorDto {
+    private String errorMessage;
     private String errorCode;
 }
