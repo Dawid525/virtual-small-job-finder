@@ -13,17 +13,18 @@ import javax.validation.constraints.NotNull;
 public class RegisterRequest {
 
     /***
-     * password requirements
+     * password requirements:
      * 8-30 characters, min 1 lowercase, min 1 uppercase, min 1 special character, min 1 digit, no whitespace
+     * username requirements: 5-25 characters
      */
 
     @NotNull
     @NotEmpty
     @Email
     private String email;
-    @NotNull
+    @NotNull(message = "Username is mandatory")
     @NotBlank(message = "Username is mandatory")
-    @Length(min = 5, max = 25)
+    @Length(min = 5, max = 25, message = "Username must have 5-25 characters")
     private String username;
     @ValidPassword
     private String password;

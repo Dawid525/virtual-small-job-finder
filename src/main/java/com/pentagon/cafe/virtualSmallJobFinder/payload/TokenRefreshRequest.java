@@ -8,6 +8,6 @@ import javax.validation.constraints.NotNull;
 @Data
 public class TokenRefreshRequest {
     @NotNull
-    @NotBlank
+    @NotBlank(message = "refresh token must not be blank")
     private String refreshToken;
 }
