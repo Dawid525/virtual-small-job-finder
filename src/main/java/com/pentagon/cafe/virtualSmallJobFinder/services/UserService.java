@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.*;
 
 @AllArgsConstructor
@@ -72,7 +73,7 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(UserDto userDto){
+    public void updateUser(@Valid UserDto userDto){
             //TODO
     }
 
