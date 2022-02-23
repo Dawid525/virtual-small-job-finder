@@ -2,7 +2,6 @@ package com.pentagon.cafe.virtualSmallJobFinder.repositories.entities;
 
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 

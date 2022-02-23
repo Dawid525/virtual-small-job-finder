@@ -77,18 +77,18 @@ public class UserService {
     }
 
     @Transactional
-    public void changePassword(UserDto userDto) {
+    public void changePassword(String password) {
         UserEntity userEntity = userLoggedInfoService.getLoggedUser();
-        if(Objects.nonNull(userDto.getPassword())) {
-            userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        if(Objects.nonNull(password)) {
+            userEntity.setPassword(passwordEncoder.encode(password));
         }
     }
 
     @Transactional
-    public void changeEmail(UserDto userDto) {
+    public void changeEmail(String email) {
         UserEntity userEntity = userLoggedInfoService.getLoggedUser();
-        if(Objects.nonNull(userDto.getEmail())){
-            userEntity.setEmail(userDto.getEmail());
+        if(Objects.nonNull(email)){
+            userEntity.setEmail(email);
         }
     }
 

@@ -1,13 +1,17 @@
 package com.pentagon.cafe.virtualSmallJobFinder.controllers;
 
+import com.pentagon.cafe.virtualSmallJobFinder.payload.EmailRequest;
+import com.pentagon.cafe.virtualSmallJobFinder.payload.PasswordRequest;
 import com.pentagon.cafe.virtualSmallJobFinder.payload.RegisterRequest;
+import com.pentagon.cafe.virtualSmallJobFinder.payload.UsernameRequest;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.UserEntity;
 import com.pentagon.cafe.virtualSmallJobFinder.services.UserService;
-import com.pentagon.cafe.virtualSmallJobFinder.services.dtos.UserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.*;
 
 @RestController
@@ -38,32 +42,38 @@ public class UserController {
         return ResponseEntity.status(204).build();
     }
 
-    @PutMapping()
-    public ResponseEntity<?> changeEmailByLoggedUser(@RequestBody UserDto userDto){
-        userService.changeEmail(userDto);
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping()
+    public ResponseEntity<?> addUser(@Valid @RequestBody RegisterRequest registerRequest){
+        userService.addUser(registerRequest);
         return ResponseEntity.status(204).build();
     }
+    @GetMapping("/checkUsername")
+    public ResponseEntity<Boolean> isUsernameAvailable(@Valid @RequestBody UsernameRequest usernameRequest){
+        return ResponseEntity.ok(userService.isUsernameAvailable(usernameRequest.getUsername()));
+    }
 
+    @GetMapping("/checkEmail")
+    public ResponseEntity<Boolean> isEmailAvailable(@Valid @RequestBody EmailRequest emailRequest){
+        return ResponseEntity.ok(userService.isEmailAvailable(emailRequest.getEmail()));
+    }
+
+    @PutMapping("/change/email")
+    public ResponseEntity<?> changeEmailByLoggedUser(@Valid @RequestBody EmailRequest emailRequest){
+        userService.changeEmail(emailRequest.getEmail());
+        return ResponseEntity.status(204).build();
+    }
     @PutMapping("/change/password")
-    public ResponseEntity<?> changePasswordByLoggedUser(@RequestBody UserDto userDto){
-        userService.changePassword(userDto);
+    public ResponseEntity<?> changePasswordByLoggedUser(@Valid @RequestBody PasswordRequest passwordRequest){
+        userService.changePassword(passwordRequest.getPassword());
         return ResponseEntity.status(204).build();
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/{username}")
-    public ResponseEntity<?> deleteUser(@PathVariable String username){
-        userService.deleteUserByUsername(username);
+    @DeleteMapping()
+    public ResponseEntity<?> deleteUser(@Valid @RequestBody UsernameRequest usernameRequest){
+        userService.deleteUserByUsername(usernameRequest.getUsername());
         return ResponseEntity.status(200).build();
-    }
-    @GetMapping("/checkUsername")
-    public ResponseEntity<Boolean> isUsernameAvailable(@RequestBody RegisterRequest registerRequest){
-        return ResponseEntity.ok(userService.isUsernameAvailable(registerRequest.getUsername()));
-    }
-
-    @GetMapping("/checkEmail")
-    public ResponseEntity<Boolean> isEmailAvailable(@RequestBody RegisterRequest registerRequest){
-        return ResponseEntity.ok(userService.isEmailAvailable(registerRequest.getEmail()));
     }
 
 }
