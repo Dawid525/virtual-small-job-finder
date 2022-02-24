@@ -33,14 +33,14 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/{username}/take/admin")
+    @PutMapping("/{username}/take/admin")
     public ResponseEntity<?> takeAdminRoleFromUser(@PathVariable String username){
         userService.takeAdminRoleFromUser(username);
         return ResponseEntity.status(204).build();
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping()
+    @PutMapping()
     public ResponseEntity<?> addUser(@Valid @RequestBody RegisterRequest registerRequest){
         userService.addUser(registerRequest);
         return ResponseEntity.status(204).build();
