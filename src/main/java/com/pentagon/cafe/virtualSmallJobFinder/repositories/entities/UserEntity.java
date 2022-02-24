@@ -1,6 +1,7 @@
 package com.pentagon.cafe.virtualSmallJobFinder.repositories.entities;
 
 
+import com.pentagon.cafe.virtualSmallJobFinder.enums.UserType;
 import lombok.*;
 import javax.persistence.*;
 import java.util.HashSet;
@@ -25,6 +26,8 @@ public class UserEntity {
     @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<Role> roles = new HashSet<>();
-
+    @Enumerated(EnumType.STRING)
+    private UserType type;
+    private boolean enabled;
 
 }

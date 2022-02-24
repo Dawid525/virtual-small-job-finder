@@ -4,6 +4,7 @@ package com.pentagon.cafe.virtualSmallJobFinder.services;
 
 import com.pentagon.cafe.virtualSmallJobFinder.enums.ErrorMessageEnum;
 import com.pentagon.cafe.virtualSmallJobFinder.enums.RoleEnum;
+import com.pentagon.cafe.virtualSmallJobFinder.enums.UserType;
 import com.pentagon.cafe.virtualSmallJobFinder.exceptions.UserWithThisEmailExistsException;
 import com.pentagon.cafe.virtualSmallJobFinder.exceptions.UserWithThisUsernameExistsException;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.RoleRepository;
@@ -44,6 +45,8 @@ public class UserService {
                 .username(registerRequest.getUsername())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .roles(roles)
+                .type(registerRequest.getType())
+                .enabled(true)
                 .build();
         return userRepository.save(user).getId();
     }
@@ -94,6 +97,13 @@ public class UserService {
     }
 
     @Transactional
+    public void changeType(UserType type) {
+        UserEntity userEntity = userLoggedInfoService.getLoggedUser();
+        if(Objects.nonNull(type)){
+            userEntity.setType(type);
+        }
+    }
+    @Transactional
     public void deleteUserByUsername(String username) {
         if(userRepository.existsByUsername(username)){
             userRepository.deleteByUsername(username);
@@ -106,5 +116,11 @@ public class UserService {
 
     public boolean isUsernameAvailable(String username) {
         return userRepository.existsByUsername(username);
+    }
+
+    @Transactional
+    public void disableUser() {
+        UserEntity userEntity = userLoggedInfoService.getLoggedUser();
+        userEntity.setEnabled(false);
     }
 }

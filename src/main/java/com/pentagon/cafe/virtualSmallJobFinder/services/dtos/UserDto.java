@@ -1,5 +1,6 @@
 package com.pentagon.cafe.virtualSmallJobFinder.services.dtos;
 
+import com.pentagon.cafe.virtualSmallJobFinder.enums.UserType;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.Role;
 import com.pentagon.cafe.virtualSmallJobFinder.validation.ValidPassword;
 import lombok.AllArgsConstructor;
@@ -33,7 +34,9 @@ public class UserDto {
     @ValidPassword
     private String password;
     private Set<Role> roles = new HashSet<>();
-
+    @NotEmpty
+    private UserType type;
+    private boolean enabled;
 
 }
 

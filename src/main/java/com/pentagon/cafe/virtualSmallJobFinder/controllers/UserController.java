@@ -1,9 +1,6 @@
 package com.pentagon.cafe.virtualSmallJobFinder.controllers;
 
-import com.pentagon.cafe.virtualSmallJobFinder.payload.EmailRequest;
-import com.pentagon.cafe.virtualSmallJobFinder.payload.PasswordRequest;
-import com.pentagon.cafe.virtualSmallJobFinder.payload.RegisterRequest;
-import com.pentagon.cafe.virtualSmallJobFinder.payload.UsernameRequest;
+import com.pentagon.cafe.virtualSmallJobFinder.payload.*;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.UserEntity;
 import com.pentagon.cafe.virtualSmallJobFinder.services.UserService;
 import lombok.AllArgsConstructor;
@@ -66,6 +63,18 @@ public class UserController {
     @PutMapping("/change/password")
     public ResponseEntity<?> changePasswordByLoggedUser(@Valid @RequestBody PasswordRequest passwordRequest){
         userService.changePassword(passwordRequest.getPassword());
+        return ResponseEntity.status(204).build();
+    }
+
+    @PutMapping("/disable/user")
+    public ResponseEntity<?> disableUser(){
+        userService.disableUser();
+        return ResponseEntity.status(204).build();
+    }
+
+    @PutMapping("/change/type")
+    public ResponseEntity<?> changeType(@Valid @RequestBody TypeRequest typeRequest){
+        userService.changeType(typeRequest.getType());
         return ResponseEntity.status(204).build();
     }
 

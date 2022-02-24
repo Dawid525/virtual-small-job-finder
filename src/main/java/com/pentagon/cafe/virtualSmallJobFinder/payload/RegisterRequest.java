@@ -1,5 +1,6 @@
 package com.pentagon.cafe.virtualSmallJobFinder.payload;
 
+import com.pentagon.cafe.virtualSmallJobFinder.enums.UserType;
 import com.pentagon.cafe.virtualSmallJobFinder.validation.ValidPassword;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -30,4 +31,6 @@ public class RegisterRequest {
     @NotBlank
     @ValidPassword
     private String password;
+    @NotEmpty
+    private UserType type;
 }
