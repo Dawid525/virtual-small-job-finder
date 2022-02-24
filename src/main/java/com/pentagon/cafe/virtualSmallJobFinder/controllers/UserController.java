@@ -45,6 +45,20 @@ public class UserController {
         userService.addUser(registerRequest);
         return ResponseEntity.status(204).build();
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/{username}/enable/user")
+    public ResponseEntity<?> disableUser(@PathVariable String username){
+        userService.enableUserByUsername(username);
+        return ResponseEntity.status(204).build();
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/{username}/disable/user")
+    public ResponseEntity<?> disableUserByAdmin(@PathVariable String username){
+        userService.disableUserByUsername(username);
+        return ResponseEntity.status(204).build();
+    }
+
     @GetMapping("/checkUsername")
     public ResponseEntity<Boolean> isUsernameAvailable(@Valid @RequestBody UsernameRequest usernameRequest){
         return ResponseEntity.ok(userService.isUsernameAvailable(usernameRequest.getUsername()));
