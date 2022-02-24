@@ -52,12 +52,24 @@ public class UserService {
     }
 
     @Transactional
+    public void enableUserByUsername(String username) {
+        UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(ErrorMessageEnum.NOT_FOUND_USERNAME.getMessage() + username));
+        userEntity.setEnabled(true);
+    }
+
+    @Transactional
+    public void disableUserByUsername(String username) {
+        UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(ErrorMessageEnum.NOT_FOUND_USERNAME.getMessage() + username));
+        userEntity.setEnabled(false);
+    }
+
+    @Transactional
     public void giveAdminRoleToUser(String username) {
         UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(ErrorMessageEnum.NOT_FOUND_USERNAME.getMessage() + username));
         Role admin = roleRepository.getByName(RoleEnum.ROLE_ADMIN);
         var roles = userEntity.getRoles();
         if(!roles.contains(admin)){
-           userEntity.getRoles().add(admin);
+            userEntity.getRoles().add(admin);
         }
     }
 
@@ -123,4 +135,5 @@ public class UserService {
         UserEntity userEntity = userLoggedInfoService.getLoggedUser();
         userEntity.setEnabled(false);
     }
+
 }
