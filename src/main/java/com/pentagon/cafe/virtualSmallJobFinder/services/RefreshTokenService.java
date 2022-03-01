@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Component
+@AllArgsConstructor
 public class RefreshTokenService {
 
     @Autowired

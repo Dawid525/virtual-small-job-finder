@@ -25,7 +25,7 @@ public class RefreshTokenServiceTest {
     @Mock
     private RefreshTokenRepository refreshTokenRepository;
 
-    private final RefreshTokenService refreshTokenService = new RefreshTokenService();
+    private final RefreshTokenService refreshTokenService = new RefreshTokenService(refreshTokenRepository, userService, 86400000L);
 
 
 
@@ -45,7 +45,7 @@ public class RefreshTokenServiceTest {
         tokenToReturn.setUser(userEntity);
         tokenToReturn.setId(2L);
         tokenToReturn.setToken(UUID.randomUUID().toString());
-        tokenToReturn.setExpiryDate(LocalDateTime.now().plusSeconds(1241245125));
+        tokenToReturn.setExpiryDate(LocalDateTime.now().plusSeconds(86400000));
         //when
         when(userService.getUserEntityById(any()))
                 .thenReturn(userEntity);
