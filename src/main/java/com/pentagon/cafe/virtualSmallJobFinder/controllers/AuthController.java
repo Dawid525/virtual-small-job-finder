@@ -32,7 +32,9 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest){
-        return ResponseEntity.status(201).body("User registered successfully with id:" + userService.addUser(registerRequest));
+
+        userService.addUser(registerRequest);
+        return ResponseEntity.status(201).body("User registered successfully ");
     }
 
     @PostMapping("/refreshtoken")
