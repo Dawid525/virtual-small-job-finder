@@ -16,14 +16,15 @@ import java.util.UUID;
 public class RefreshTokenService {
 
     @Autowired
-    private  RefreshTokenRepository refreshTokenRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
     @Autowired
-    private UserService userService;
+
+    private final UserService userService;
 
 
 
     @Value("${app.jwtRefreshExpirationTimeMs}")
-    private Long refreshTokenDurationMs;
+    private final Long refreshTokenDurationMs;
 
     public RefreshToken createRefreshToken(Long userId) {
 

@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -22,18 +23,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class RefreshTokenServiceTest {
-
-
-   // @
-  // @InjectMocks
-   //@MockBean
-  //  private UserService userService;
-   // @Mock
- //  @InjectMocks
-  //  private RefreshTokenRepository refreshTokenRepository;
-
-   // private final RefreshTokenService refreshTokenService = new RefreshTokenService(refreshTokenRepository, userService, 86400000L);
-
 
 
     @Test
@@ -66,6 +55,7 @@ public class RefreshTokenServiceTest {
         RefreshToken returnedToken = refreshTokenService.createRefreshToken(userId);
         //then
         assertThat(returnedToken).isNotNull();
+        assertThat(returnedToken).isEqualTo(tokenToReturn);
     }
 
 }
