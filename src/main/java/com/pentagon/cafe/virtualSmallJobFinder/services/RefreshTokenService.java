@@ -3,6 +3,7 @@ package com.pentagon.cafe.virtualSmallJobFinder.services;
 import com.pentagon.cafe.virtualSmallJobFinder.exceptions.TokenRefreshException;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.RefreshTokenRepository;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.RefreshToken;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
