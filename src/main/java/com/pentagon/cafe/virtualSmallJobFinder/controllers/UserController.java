@@ -18,6 +18,7 @@ public class UserController {
 
     private final UserService userService;
 
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping()
     public ResponseEntity<List<UserEntity>> getAllUsersByAdmin() {
@@ -84,20 +85,6 @@ public class UserController {
     @PutMapping("/disable/user")
     public ResponseEntity<?> disableUserByLoggedInUser() {
         userService.disableUser();
-        return ResponseEntity.status(204).build();
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("/{username}/enable/user")
-    public ResponseEntity<?> disableUser(@PathVariable String username){
-        userService.enableUserByUsername(username);
-        return ResponseEntity.status(204).build();
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("/{username}/disable/user")
-    public ResponseEntity<?> disableUserByAdmin(@PathVariable String username){
-        userService.disableUserByUsername(username);
         return ResponseEntity.status(204).build();
     }
 
