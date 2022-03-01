@@ -18,7 +18,6 @@ public class UserController {
 
     private final UserService userService;
 
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping()
     public ResponseEntity<List<UserEntity>> getAllUsersByAdmin() {
