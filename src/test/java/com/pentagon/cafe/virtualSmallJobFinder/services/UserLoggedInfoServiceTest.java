@@ -26,7 +26,6 @@ public class UserLoggedInfoServiceTest {
 
     @Test
     void shouldGetLoggedUser(){
-
         //given
         UserLoggedInfoService userLoggedInfoService = new UserLoggedInfoService(userRepository);
         String username = "User";

@@ -4,6 +4,7 @@ package com.pentagon.cafe.virtualSmallJobFinder.services;
 import com.pentagon.cafe.virtualSmallJobFinder.enums.ErrorMessageEnum;
 import com.pentagon.cafe.virtualSmallJobFinder.enums.RoleEnum;
 import com.pentagon.cafe.virtualSmallJobFinder.enums.UserType;
+import com.pentagon.cafe.virtualSmallJobFinder.exceptions.UserNotFoundException;
 import com.pentagon.cafe.virtualSmallJobFinder.exceptions.UserWithThisEmailExistsException;
 import com.pentagon.cafe.virtualSmallJobFinder.exceptions.UserWithThisUsernameExistsException;
 import com.pentagon.cafe.virtualSmallJobFinder.payload.RegisterRequest;
@@ -62,6 +63,10 @@ public class UserService {
 
     private UserEntity getUserEntityByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(ErrorMessageEnum.NOT_FOUND_USERNAME.getMessage() + username));
+    }
+
+    public UserEntity getUserEntityById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ErrorMessageEnum.NOT_FOUND_USER.getMessage() + id));
     }
 
     @Transactional

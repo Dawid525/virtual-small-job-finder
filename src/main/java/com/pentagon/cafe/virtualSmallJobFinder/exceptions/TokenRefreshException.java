@@ -1,6 +1,6 @@
 package com.pentagon.cafe.virtualSmallJobFinder.exceptions;
 
 public class TokenRefreshException extends RuntimeException{
-    public TokenRefreshException(String requestRefreshToken, String s) {
+    public TokenRefreshException(String requestRefreshToken, String message) {
     }
 }
