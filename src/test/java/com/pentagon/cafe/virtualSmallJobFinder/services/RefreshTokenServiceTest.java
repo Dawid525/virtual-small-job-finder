@@ -6,9 +6,14 @@ import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.RefreshToke
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
+
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.UUID;
@@ -20,18 +25,12 @@ import static org.mockito.Mockito.*;
 public class RefreshTokenServiceTest {
 
 
-    @Mock
-    private UserService userService;
-    @Mock
-    private RefreshTokenRepository refreshTokenRepository;
-
-    private final RefreshTokenService refreshTokenService = new RefreshTokenService(refreshTokenRepository, userService, 86400000L);
-
-
-
     @Test
     void test(){
         //given
+        UserService userService = mock(UserService.class);
+        RefreshTokenRepository refreshTokenRepository = mock(RefreshTokenRepository.class);
+        RefreshTokenService refreshTokenService = new RefreshTokenService(refreshTokenRepository, userService, 86400000L );
         Long userId = 1L;
         UserEntity userEntity = UserEntity.builder()
                 .username("user")
@@ -56,6 +55,7 @@ public class RefreshTokenServiceTest {
         RefreshToken returnedToken = refreshTokenService.createRefreshToken(userId);
         //then
         assertThat(returnedToken).isNotNull();
+        assertThat(returnedToken).isEqualTo(tokenToReturn);
     }
 
 }
