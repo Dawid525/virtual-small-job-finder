@@ -74,17 +74,7 @@ public class UserService {
         UserEntity userEntity = getUserEntityByUsername(username);
         userEntity.setEnabled(false);
     }
-    @Transactional
-    public void enableUserByUsername(String username) {
-        UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(ErrorMessageEnum.NOT_FOUND_USERNAME.getMessage() + username));
-        userEntity.setEnabled(true);
-    }
 
-    @Transactional
-    public void disableUserByUsername(String username) {
-        UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(ErrorMessageEnum.NOT_FOUND_USERNAME.getMessage() + username));
-        userEntity.setEnabled(false);
-    }
     @Transactional
     public void giveAdminRoleToUser(String username) {
         UserEntity userEntity = getUserEntityByUsername(username);

@@ -4,6 +4,7 @@ import com.pentagon.cafe.virtualSmallJobFinder.exceptions.TokenRefreshException;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.RefreshTokenRepository;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.RefreshToken;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -13,18 +14,16 @@ import java.util.UUID;
 
 @Component
 @AllArgsConstructor
+@NoArgsConstructor
 public class RefreshTokenService {
 
     @Autowired
-    private final RefreshTokenRepository refreshTokenRepository;
+    private  RefreshTokenRepository refreshTokenRepository;
     @Autowired
-
-    private final UserService userService;
-
-
+    private  UserService userService;
 
     @Value("${app.jwtRefreshExpirationTimeMs}")
-    private final Long refreshTokenDurationMs;
+    private Long refreshTokenDurationMs;
 
     public RefreshToken createRefreshToken(Long userId) {
 
