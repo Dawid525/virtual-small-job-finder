@@ -25,12 +25,15 @@ public class RefreshTokenServiceTest {
     private final RefreshTokenService refreshTokenService;
     private final UserService userService;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final PropertiesService propertiesService;
+    private final long JWT_REFRESH_EXPIRATION_TIME_MS = 86400000L;
 
 
     public RefreshTokenServiceTest(){
         userService = mock(UserService.class);
         refreshTokenRepository = mock(RefreshTokenRepository.class);
-        refreshTokenService = new RefreshTokenService(refreshTokenRepository, userService, new PropertiesService());
+        propertiesService = mock(PropertiesService.class);
+        refreshTokenService = new RefreshTokenService(refreshTokenRepository, userService, propertiesService);
     }
 
 
@@ -50,8 +53,9 @@ public class RefreshTokenServiceTest {
         tokenToReturn.setUser(userEntity);
         tokenToReturn.setId(2L);
         tokenToReturn.setToken(UUID.randomUUID().toString());
-        tokenToReturn.setExpiryDate(LocalDateTime.now().plusSeconds(86400000));
+        tokenToReturn.setExpiryDate(LocalDateTime.now().plusSeconds(JWT_REFRESH_EXPIRATION_TIME_MS));
         //when
+        when(propertiesService.getRefreshTokenDurationMs()).thenReturn(JWT_REFRESH_EXPIRATION_TIME_MS);
         when(userService.getUserEntityById(any()))
                 .thenReturn(userEntity);
 
@@ -80,7 +84,7 @@ public class RefreshTokenServiceTest {
         refreshToken.setUser(userEntity);
         refreshToken.setId(2L);
         refreshToken.setToken(UUID.randomUUID().toString());
-        refreshToken.setExpiryDate(LocalDateTime.now().plusSeconds(86400000));
+        refreshToken.setExpiryDate(LocalDateTime.now().plusSeconds(JWT_REFRESH_EXPIRATION_TIME_MS));
         //when
         refreshTokenService.deleteByUserId(userId);
         //then
@@ -101,7 +105,7 @@ public class RefreshTokenServiceTest {
         refreshToken.setUser(userEntity);
         refreshToken.setId(2L);
         refreshToken.setToken(UUID.randomUUID().toString());
-        refreshToken.setExpiryDate(LocalDateTime.now().plusSeconds(86400000));
+        refreshToken.setExpiryDate(LocalDateTime.now().plusSeconds(JWT_REFRESH_EXPIRATION_TIME_MS));
         String token = refreshToken.getToken();
         //when
         when(refreshTokenRepository.findByToken(token)).thenReturn(Optional.empty());
@@ -123,7 +127,7 @@ public class RefreshTokenServiceTest {
         refreshToken.setUser(userEntity);
         refreshToken.setId(2L);
         refreshToken.setToken(UUID.randomUUID().toString());
-        refreshToken.setExpiryDate(LocalDateTime.now().plusSeconds(86400000));
+        refreshToken.setExpiryDate(LocalDateTime.now().plusSeconds(JWT_REFRESH_EXPIRATION_TIME_MS));
         String token = refreshToken.getToken();
         //when
         when(refreshTokenRepository.findByToken(token)).thenReturn(Optional.of(refreshToken));
@@ -148,7 +152,7 @@ public class RefreshTokenServiceTest {
         refreshToken.setUser(userEntity);
         refreshToken.setId(2L);
         refreshToken.setToken(UUID.randomUUID().toString());
-        refreshToken.setExpiryDate(LocalDateTime.now().plusSeconds(86400000));
+        refreshToken.setExpiryDate(LocalDateTime.now().plusSeconds(JWT_REFRESH_EXPIRATION_TIME_MS));
         //when
         refreshTokenService.verifyExpiration(refreshToken);
     }
@@ -169,7 +173,7 @@ public class RefreshTokenServiceTest {
             refreshToken.setUser(userEntity);
             refreshToken.setId(2L);
             refreshToken.setToken(UUID.randomUUID().toString());
-            refreshToken.setExpiryDate(LocalDateTime.now().minusSeconds(12313L));
+            refreshToken.setExpiryDate(LocalDateTime.now().minusSeconds(JWT_REFRESH_EXPIRATION_TIME_MS));
             //when
             //then
             assertThrows(TokenRefreshException.class, () -> refreshTokenService.verifyExpiration(refreshToken));
