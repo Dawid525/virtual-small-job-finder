@@ -87,14 +87,6 @@ public class UserController {
         return ResponseEntity.status(204).build();
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("/{username}/enable/user")
-    public ResponseEntity<?> disableUser(@PathVariable String username){
-        userService.enableUserByUsername(username);
-        return ResponseEntity.status(204).build();
-    }
-
-
     @PutMapping("/change/type")
     public ResponseEntity<?> changeType(@Valid @RequestBody TypeRequest typeRequest) {
         userService.changeType(typeRequest.getType());
