@@ -14,22 +14,18 @@ import java.util.UUID;
 
 @Component
 @AllArgsConstructor
-@NoArgsConstructor
 public class RefreshTokenService {
 
-    @Autowired
-    private  RefreshTokenRepository refreshTokenRepository;
-    @Autowired
-    private  UserService userService;
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final UserService userService;
+    private final PropertiesService propertiesService;
 
-    @Value("${app.jwtRefreshExpirationTimeMs}")
-    private Long refreshTokenDurationMs;
+
 
     public RefreshToken createRefreshToken(Long userId) {
-
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setUser(userService.getUserEntityById(userId));
-        refreshToken.setExpiryDate(LocalDateTime.now().plusSeconds(refreshTokenDurationMs));
+        refreshToken.setExpiryDate(LocalDateTime.now().plusSeconds(propertiesService.getRefreshTokenDurationMs()));
         refreshToken.setToken(UUID.randomUUID().toString());
         return refreshTokenRepository.save(refreshToken);
     }
