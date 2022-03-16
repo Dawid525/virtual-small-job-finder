@@ -41,7 +41,7 @@ public class AuthenticationService {
         Set<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toSet());
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
-        return new JwtResponse(token, refreshToken.getToken(), userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles);
+        return new JwtResponse(token, refreshToken.getToken(), userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles, userDetails.getType());
     }
 
 

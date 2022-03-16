@@ -40,7 +40,7 @@ public class UserLoggedInfoServiceTest {
                 .type(UserType.EMPLOYEE)
                 .email(email)
                 .build();
-        UserDetailsImpl userDetails = new UserDetailsImpl(id, email, username, password, Collections.emptyList());
+        UserDetailsImpl userDetails = new UserDetailsImpl(id, email, username, password, UserType.EMPLOYEE, Collections.emptyList());
         //when
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userDetails, null,null));
         when(userRepository.getByUsername(username)).thenReturn(loggedUser);

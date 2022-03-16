@@ -1,5 +1,6 @@
 package com.pentagon.cafe.virtualSmallJobFinder.utils;
 
+import com.pentagon.cafe.virtualSmallJobFinder.enums.UserType;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,6 +19,7 @@ public class UserDetailsImpl implements UserDetails {
     private String email;
     private String username;
     private String password;
+    private UserType type;
     private Collection<? extends GrantedAuthority> authorities;
 
 
@@ -28,8 +30,16 @@ public class UserDetailsImpl implements UserDetails {
         return new UserDetailsImpl(userEntity.getId(),
                 userEntity.getEmail(),
                 userEntity.getUsername(),
-                userEntity.getPassword(),
+                userEntity.getPassword(), userEntity.getType(),
                 authorities);
+    }
+
+    public UserType getType() {
+        return type;
+    }
+
+    public void setType(UserType type) {
+        this.type = type;
     }
 
     public Long getId() {
