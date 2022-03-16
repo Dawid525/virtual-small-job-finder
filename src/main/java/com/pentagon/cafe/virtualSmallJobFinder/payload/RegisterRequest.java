@@ -31,6 +31,6 @@ public class RegisterRequest {
     @NotBlank
     @ValidPassword
     private String password;
-    @NotEmpty
+    @NotNull
     private UserType type;
 }
