@@ -55,11 +55,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    @Transactional
-    public void enableUserByUsername(String username) {
-        UserEntity userEntity = getUserEntityByUsername(username);
-        userEntity.setEnabled(true);
-    }
+
 
     private UserEntity getUserEntityByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(ErrorMessageEnum.NOT_FOUND_USERNAME.getMessage() + username));
@@ -69,11 +65,7 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ErrorMessageEnum.NOT_FOUND_USER.getMessage() + id));
     }
 
-    @Transactional
-    public void disableUserByUsername(String username) {
-        UserEntity userEntity = getUserEntityByUsername(username);
-        userEntity.setEnabled(false);
-    }
+
     @Transactional
     public void enableUserByUsername(String username) {
         UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(ErrorMessageEnum.NOT_FOUND_USERNAME.getMessage() + username));
