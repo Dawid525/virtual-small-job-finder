@@ -5,9 +5,12 @@ import com.pentagon.cafe.virtualSmallJobFinder.exceptions.TokenRefreshException;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.RefreshTokenRepository;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.RefreshToken;
 import com.pentagon.cafe.virtualSmallJobFinder.repositories.entities.UserEntity;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
@@ -17,25 +20,31 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class RefreshTokenServiceTest {
 
-    private final RefreshTokenService refreshTokenService;
-    private final UserService userService;
-    private final RefreshTokenRepository refreshTokenRepository;
-    private final PropertiesService propertiesService;
+
+    @Mock
+    private  RefreshTokenService refreshTokenService;
+    @Mock
+    private  UserService userService;
+    @Mock
+    private  RefreshTokenRepository refreshTokenRepository;
+    @Mock
+    private  PropertiesService propertiesService;
     private final long JWT_REFRESH_EXPIRATION_TIME_MS = 86400000L;
 
 
-    public RefreshTokenServiceTest(){
-        userService = mock(UserService.class);
-        refreshTokenRepository = mock(RefreshTokenRepository.class);
-        propertiesService = mock(PropertiesService.class);
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
         refreshTokenService = new RefreshTokenService(refreshTokenRepository, userService, propertiesService);
     }
-
 
     @Test
     void shouldReturnNotNullRefreshToken(){
